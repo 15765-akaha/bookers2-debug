@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
    before_action :authenticate_user!
+   before_action :baria_user, only: [:edit]
 
   def show
     @book_new = Book.new
@@ -54,4 +55,11 @@ class BooksController < ApplicationController
   	params.require(:book).permit(:title, :body)
   end
 
+  #url直接防止メソッドを自己定義してbefore_actionで発動。
+  def baria_user
+       @book = Book.find(params[:id])
+    if current_user.id != @book.user_id
+       redirect_to books_path
+  end
+ end
 end
