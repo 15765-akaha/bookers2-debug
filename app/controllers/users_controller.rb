@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-	before_action :baria_user, only: [:update]
+	before_action :authenticate_user!
+  before_action :baria_user, only: [:update]
 
   def show
   	@user = User.find(params[:id])
@@ -18,22 +19,24 @@ class UsersController < ApplicationController
   def update
   	@user = User.find(params[:id])
   	if @user.update(user_params)
-  		redirect_to users_path(@user), notice: "successfully updated user!"
+      flash[:notice] = "successfully updated user!"
+  		redirect_to users_path(@user)
   	else
-  		render "show"
+  		render :edit
   	end
-  end
 
   private
   def user_params
   	params.require(:user).permit(:name, :introduction, :profile_image)
   end
 
-  #url直接防止　メソッドを自己定義してbefore_actionで発動。
-   def baria_user
-  	if params[:id].to_i == current_user.id
-  		redirect_to user_path(current_user)
-  	end
-   end
+  #url直接防止メソッドを自己定義してbefore_actionで発動。
+   # def baria_user
+   #    @user = User.find(params[:id])
+  	# if @user.id != current_user.id
+  	# 	redirect_to user_path(current_user)
+  	# end
+   # end
  end
+end
 end
