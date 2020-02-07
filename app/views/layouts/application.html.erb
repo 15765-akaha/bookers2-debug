@@ -38,8 +38,10 @@
     </header>
     <!--ヘッダーの記述-->
     <div class="container">
+      <div class="wrap-msg">
       <p id="notice"><%= notice %></p>
       <p id="alert"><%= alert %></p> <!--デバイスでnotice設定されているので呼び出してるだけ-->
+      </div>
     <%= yield %>
     </div>
   </body>
