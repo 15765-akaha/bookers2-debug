@@ -4,7 +4,7 @@
 <h1>Editing Book</h1>
 
 <%= render "books/newform", book: @book %>
-<%= link_to "Show", @book, class: "book_#{@book.id}" %>
+<%= link_to "Show", book_path(@book), class: "book_#{@book.id}" %>
 <%= link_to "Back", books_path, class: "back" %>
 
 </div>
